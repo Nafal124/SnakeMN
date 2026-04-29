@@ -179,6 +179,9 @@ void SnakeController::GameActionsDependingOnGameState(sf::Event &event){
 
 void SnakeController::Play(sf::RenderWindow &window) {
 
+    sf::View view(sf::FloatRect(0, 0, Snake.GetWidth() * 40.f, Snake.GetHeight() * 40.f));
+    window.setView(view);
+
     while (window.isOpen()) {
 
         if (Snake.GetGameMode() != DEBUG and
@@ -202,9 +205,8 @@ void SnakeController::Play(sf::RenderWindow &window) {
             }
 
             if (event.type == sf::Event::Resized) {
-                sf::FloatRect visibleArea(0, 0, static_cast<float>(event.size.width),
-                                          static_cast<float>(event.size.height));
-                window.setView(sf::View(visibleArea));
+                view.setSize(Snake.GetWidth() * 40.f, Snake.GetHeight() * 40.f);
+                window.setView(view);
             }
         }
 
